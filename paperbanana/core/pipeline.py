@@ -289,13 +289,13 @@ class PaperBananaPipeline:
 
         # ── Phase 1: Linear Planning ─────────────────────────────────
 
-        # Step 1: Retriever — find relevant examples
+        # Step 1: Retriever — find relevant examples (timer includes external call when enabled)
         logger.info("Phase 1: Retrieval")
+        retrieval_start = time.perf_counter()
         candidates = self.reference_store.get_all()
         candidates, retrieval_mode, external_candidate_ids = (
             await self._resolve_retrieval_candidates(input, candidates)
         )
-        retrieval_start = time.perf_counter()
         if retrieval_mode == "external_only":
             examples = candidates[: self.settings.num_retrieval_examples]
         else:
