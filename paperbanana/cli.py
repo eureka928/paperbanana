@@ -469,7 +469,9 @@ def generate(
 
 @app.command()
 def batch(
-    manifest: str = typer.Option(..., "--manifest", "-m", help="Path to batch manifest (YAML or JSON)"),
+    manifest: str = typer.Option(
+        ..., "--manifest", "-m", help="Path to batch manifest (YAML or JSON)"
+    ),
     output_dir: str = typer.Option(
         "outputs",
         "--output-dir",
@@ -479,15 +481,31 @@ def batch(
     config: Optional[str] = typer.Option(None, "--config", help="Path to config YAML file"),
     vlm_provider: Optional[str] = typer.Option(None, "--vlm-provider", help="VLM provider"),
     vlm_model: Optional[str] = typer.Option(None, "--vlm-model", help="VLM model name"),
-    image_provider: Optional[str] = typer.Option(None, "--image-provider", help="Image gen provider"),
+    image_provider: Optional[str] = typer.Option(
+        None, "--image-provider", help="Image gen provider"
+    ),
     image_model: Optional[str] = typer.Option(None, "--image-model", help="Image gen model name"),
-    iterations: Optional[int] = typer.Option(None, "--iterations", "-n", help="Refinement iterations"),
-    auto: bool = typer.Option(False, "--auto", help="Loop until critic satisfied (with safety cap)"),
-    max_iterations: Optional[int] = typer.Option(None, "--max-iterations", help="Safety cap for --auto"),
-    optimize: bool = typer.Option(False, "--optimize", help="Preprocess inputs for better generation"),
-    format: str = typer.Option("png", "--format", "-f", help="Output image format (png, jpeg, webp)"),
-    save_prompts: Optional[bool] = typer.Option(None, "--save-prompts/--no-save-prompts", help="Save prompts per run"),
-    auto_download_data: bool = typer.Option(False, "--auto-download-data", help="Auto-download reference set if needed"),
+    iterations: Optional[int] = typer.Option(
+        None, "--iterations", "-n", help="Refinement iterations"
+    ),
+    auto: bool = typer.Option(
+        False, "--auto", help="Loop until critic satisfied (with safety cap)"
+    ),
+    max_iterations: Optional[int] = typer.Option(
+        None, "--max-iterations", help="Safety cap for --auto"
+    ),
+    optimize: bool = typer.Option(
+        False, "--optimize", help="Preprocess inputs for better generation"
+    ),
+    format: str = typer.Option(
+        "png", "--format", "-f", help="Output image format (png, jpeg, webp)"
+    ),
+    save_prompts: Optional[bool] = typer.Option(
+        None, "--save-prompts/--no-save-prompts", help="Save prompts per run"
+    ),
+    auto_download_data: bool = typer.Option(
+        False, "--auto-download-data", help="Auto-download reference set if needed"
+    ),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Show detailed progress"),
 ):
     """Generate multiple methodology diagrams from a manifest file (YAML or JSON)."""
@@ -618,7 +636,8 @@ def batch(
 
     succeeded = sum(1 for x in report["items"] if x.get("output_path"))
     console.print(
-        f"[green]Batch complete.[/green] [dim]{total_elapsed:.1f}s · {succeeded}/{len(items)} succeeded[/dim]"
+        f"[green]Batch complete.[/green] [dim]{total_elapsed:.1f}s · "
+        f"{succeeded}/{len(items)} succeeded[/dim]"
     )
     console.print(f"  Report: [bold]{report_path}[/bold]")
 

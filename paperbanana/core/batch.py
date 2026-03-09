@@ -40,7 +40,9 @@ def load_batch_manifest(manifest_path: Path) -> list[dict[str, Any]]:
             import yaml
             data = yaml.safe_load(raw)
         except ImportError:
-            raise RuntimeError("PyYAML is required for YAML manifests. Install with: pip install pyyaml")
+            raise RuntimeError(
+                "PyYAML is required for YAML manifests. Install with: pip install pyyaml"
+            )
     elif suffix == ".json":
         import json
         data = json.loads(raw)
